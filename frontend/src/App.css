@@ -1,18 +1,18 @@
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #1a1a2e;
-  color: #eee;
+  font-family: 'Space Mono', monospace;
+  background: #c8ddd0;
+  color: #1a2e1a;
 }
 
 .app {
@@ -21,18 +21,44 @@ body {
   height: 100vh;
 }
 
+/* Header */
 .title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
-  background: #16213e;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  border-bottom: 2px solid #0f3460;
+  padding: 14px 28px;
+  background: #f5f0e8;
+  border-bottom: 2px solid #1a2e1a;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  color: #1a2e1a;
   z-index: 1000;
 }
 
+.title span {
+  font-weight: 700;
+}
+
+.list-toggle {
+  background: #e8604a;
+  color: #f5f0e8;
+  border: 2px solid #1a2e1a;
+  padding: 7px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+  box-shadow: 2px 2px 0px #1a2e1a;
+}
+
+.list-toggle:hover {
+  background: #c94f3a;
+}
+
+/* Container */
 .container {
   position: relative;
   flex: 1;
@@ -46,7 +72,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(26, 46, 26, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,23 +80,26 @@ body {
 }
 
 .form-card {
-  background: #16213e;
-  border: 1px solid #0f3460;
-  border-radius: 12px;
-  padding: 24px;
+  background: #f5f0e8;
+  border: 2px solid #1a2e1a;
+  border-radius: 16px;
+  padding: 28px;
   width: 90%;
   max-width: 420px;
   position: relative;
+  box-shadow: 5px 5px 0px #1a2e1a;
 }
 
 .form-card h2 {
-  margin-bottom: 8px;
-  font-size: 1.2rem;
+  margin-bottom: 6px;
+  font-size: 1rem;
+  color: #1a2e1a;
+  letter-spacing: 2px;
 }
 
 .coords {
-  font-size: 0.85rem;
-  color: #a0aec0;
+  font-size: 0.78rem;
+  color: #5a7a5a;
   margin-bottom: 16px;
 }
 
@@ -78,85 +107,96 @@ body {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid #0f3460;
-  background: #1a1a2e;
-  color: #eee;
-  font-size: 0.95rem;
+  border: 2px solid #1a2e1a;
+  background: #fdfaf4;
+  color: #1a2e1a;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.88rem;
   resize: none;
   outline: none;
 }
 
 .form-card textarea:focus {
-  border-color: #e94560;
+  border-color: #e8604a;
 }
 
 .form-card button[type='submit'] {
-  margin-top: 12px;
+  margin-top: 14px;
   width: 100%;
   padding: 10px;
-  background: #e94560;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  background: #e8604a;
+  color: #f5f0e8;
+  border: 2px solid #1a2e1a;
+  border-radius: 999px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
   cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 3px 3px 0px #1a2e1a;
   transition: background 0.2s;
 }
 
 .form-card button[type='submit']:hover {
-  background: #c73652;
+  background: #c94f3a;
 }
 
 .form-card button[type='submit']:disabled {
-  background: #555;
+  background: #aaa;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .close-btn {
   position: absolute;
   top: 12px;
-  right: 12px;
+  right: 14px;
   background: transparent;
   border: none;
-  color: #aaa;
+  color: #5a7a5a;
   font-size: 1.1rem;
   cursor: pointer;
 }
 
 .close-btn:hover {
-  color: #e94560;
+  color: #e8604a;
 }
 
 .error {
-  color: #e94560;
-  font-size: 0.85rem;
+  color: #e8604a;
+  font-size: 0.8rem;
   margin-top: 6px;
 }
 
 /* Journal List */
 .journal-list {
-  padding: 16px;
+  padding: 24px;
   overflow-y: auto;
-  max-height: 100%;
+  height: 100%;
+  background: #c8ddd0;
 }
 
 .journal-list h2 {
-  margin-bottom: 12px;
-  font-size: 1.1rem;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  letter-spacing: 3px;
+  color: #1a2e1a;
 }
 
 .empty {
-  color: #a0aec0;
+  color: #5a7a5a;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 60px;
+  font-size: 0.88rem;
 }
 
 .journal-card {
-  background: #16213e;
-  border: 1px solid #0f3460;
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 12px;
+  background: #f5f0e8;
+  border: 2px solid #1a2e1a;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 4px 4px 0px #1a2e1a;
 }
 
 .journal-card-header {
@@ -167,8 +207,8 @@ body {
 }
 
 .journal-date {
-  font-size: 0.8rem;
-  color: #a0aec0;
+  font-size: 0.75rem;
+  color: #5a7a5a;
 }
 
 .delete-btn {
@@ -176,34 +216,21 @@ body {
   border: none;
   cursor: pointer;
   font-size: 1rem;
+  transition: transform 0.1s;
 }
 
 .delete-btn:hover {
-  opacity: 0.7;
+  transform: scale(1.2);
 }
 
 .journal-text {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   margin-bottom: 8px;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: #1a2e1a;
 }
 
 .journal-coords {
-  font-size: 0.75rem;
-  color: #a0aec0;
-}
-
-.list-toggle {
-  background: #e94560;
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.list-toggle:hover {
-  background: #c73652;
+  font-size: 0.72rem;
+  color: #5a7a5a;
 }
