@@ -13,6 +13,16 @@ L.Icon.Default.mergeOptions({
 })
 
 const ClickHandler = ({onMapClick}) => {
+    useMapEvents({
+        click(e){
+            onMapClick(e.latlng)
+        }
+    })
+    return null
+}
+
+const MapView = ({journals =[],onMapClick}) =>{
+    
     return(
      <MapContainer
      center={[20.5937,78.9629]}

@@ -58,3 +58,7 @@ const JournalForm = ({location, onSubmit, onClose}) => {
     </div>
   )
 }
+
+
+
+export default JournalForm
