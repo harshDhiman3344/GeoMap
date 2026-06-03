@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import MapView from './components/MapView'
 import JournalForm from './components/JournalForm'
+import JournalList from './components/JournalList'
 import './App.css'
 
 function App() {
   const [journals, setJournals] = useState([])
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [showList, setShowList] = useState(false)
 
   const fetchJournals = async () => {
     try {
@@ -40,17 +42,26 @@ function App() {
 
   return (
     <div className="app">
-      <h1 className="title"> GeoJournal</h1>
-      <div className="container">
+     <div className='title'>
+      <span>GeoJournal</span>
+      <button className='list-toggle' onClick={()=>setShowList(!showList)}>
+        {showList ? 'Map' : 'Entries'}
+      </button>
+     </div>
+     <div className='container'>
+      {showList ? (
+        <JournalList journals={journals} onDelete={fetchJournals} />
+      ) : (
         <MapView journals={journals} onMapClick={handleMapClick} />
-        {showForm && (
-          <JournalForm
-            location={selectedLocation}
-            onSubmit={handleFormSubmit}
-            onClose={handleFormClose}
-          />
-        )}
-      </div>
+      )}
+      {showForm && (
+        <JournalForm
+          location={selectedLocation}
+          onSubmit={handleFormSubmit}
+          onClose={handleFormClose}
+        />
+      )}
+     </div>
     </div>
   )
 }
