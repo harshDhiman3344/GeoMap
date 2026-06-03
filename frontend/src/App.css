@@ -63,6 +63,7 @@ body {
   position: relative;
   flex: 1;
   overflow: hidden;
+  width: 100vw;
 }
 
 /* Form Overlay */
@@ -234,3 +235,76 @@ body {
   font-size: 0.72rem;
   color: #5a7a5a;
 }
+
+
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 90px;
+  background: #f5f0e8;
+  border-right: 2px solid #1a2e1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 8px;
+  gap: 20px;
+  z-index: 500;
+}
+
+.sidebar-clock {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #1a2e1a;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.sidebar-date {
+  font-size: 0.65rem;
+  color: #5a7a5a;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.sidebar-entries {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e8604a;
+  border: 2px solid #1a2e1a;
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 3px 3px 0px #1a2e1a;
+}
+
+.entry-count {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f5f0e8;
+  line-height: 1;
+}
+
+.entry-label {
+  font-size: 0.6rem;
+  color: #f5f0e8;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.sidebar-trees {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  margin-top: auto;
+}
+
+
+
