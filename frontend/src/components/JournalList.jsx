@@ -1,13 +1,20 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-const JournalList = ({ journals, onDelete }) => {
+const JournalList = ({ journals, onDelete, userId }) => {
   const [deletingId, setDeletingId] = useState(null)
 
   const handleDelete = async (id) => {
     setDeletingId(id)
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/journals/${id}`)
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/journals/${id}`,
+        {
+          headers: {
+            'x-user-id': userId
+          }
+        }
+      )
       onDelete()
     } catch (err) {
       console.error('Error deleting journal:', err)
@@ -26,20 +33,27 @@ const JournalList = ({ journals, onDelete }) => {
 
   return (
     <div className="journal-list">
-      <h2>Your Entries</h2>
+      <h2>All Entries</h2>
       {journals.map((journal) => (
         <div key={journal._id} className="journal-card">
           <div className="journal-card-header">
-            <span className="journal-date">
-              📅 {new Date(journal.date).toLocaleDateString()}
-            </span>
-            <button
-              className="delete-btn"
-              onClick={() => handleDelete(journal._id)}
-              disabled={deletingId === journal._id}
-            >
-              {deletingId === journal._id ? '...' : '🗑️'}
-            </button>
+            <div>
+              <div style={{ fontSize: "0.9rem", fontWeight: "600", color: "#1a2e1a" }}>
+                👤 {journal.username}
+              </div>
+              <span className="journal-date">
+                📅 {new Date(journal.date).toLocaleDateString()}
+              </span>
+            </div>
+            {journal.userId === userId && (
+              <button
+                className="delete-btn"
+                onClick={() => handleDelete(journal._id)}
+                disabled={deletingId === journal._id}
+              >
+                {deletingId === journal._id ? '...' : '🗑️'}
+              </button>
+            )}
           </div>
           <p className="journal-text">{journal.text}</p>
           <span className="journal-coords">

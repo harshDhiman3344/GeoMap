@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const JournalForm = ({location, onSubmit, onClose}) => {
+const JournalForm = ({location, onSubmit, onClose, userId, username}) => {
     const [text, setText] = useState('')
     const [loading, setLoading]  =useState(false)
     const [error, setError] = useState('')
@@ -16,11 +16,16 @@ const JournalForm = ({location, onSubmit, onClose}) => {
 
             }
 
-            setLoading(false)
+            setLoading(true)
             try {
                 await axios.post(`${import.meta.env.VITE_API_URL}/journals`, {
                  text,
                 coordinates: [location.lng, location.lat]
+                }, {
+                    headers: {
+                        'x-user-id': userId,
+                        'x-username': username
+                    }
                 })
 
                 setText('')

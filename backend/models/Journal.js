@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 
 const journalSchema = new mongoose.Schema({
+    userId: { type: String, required: true },
+    username: { type: String, required: true },
     text: { type : String, required:true},
     location:{
         type:{
@@ -13,4 +15,6 @@ const journalSchema = new mongoose.Schema({
 
 journalSchema. index({location: '2dsphere'});
 module.exports = mongoose.model('journal', journalSchema);
+
+
 

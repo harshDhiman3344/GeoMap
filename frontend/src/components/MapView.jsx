@@ -84,6 +84,16 @@ const MapView = ({ journals = [], onMapClick }) => {
           <Popup>
             <div
               style={{
+                fontSize: "0.85rem",
+                color: "#1a2e1a",
+                marginBottom: "8px",
+                fontWeight: "600"
+              }}
+            >
+              👤 {journal.username}
+            </div>
+            <div
+              style={{
                 fontSize: "0.75rem",
                 color: "#5a7a5a",
                 marginBottom: "6px",
