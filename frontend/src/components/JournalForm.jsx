@@ -1,48 +1,52 @@
 import { useState } from "react";
 import axios from "axios";
 
-const JournalForm = ({location, onSubmit, onClose, userId, username}) => {
-    const [text, setText] = useState('')
-    const [loading, setLoading]  =useState(false)
-    const [error, setError] = useState('')
+const JournalForm = ({ location, onSubmit, onClose, userId, username }) => {
+  const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    if (!text.trim()) {
+      setError("Please Write Somethingggg!");
+      return;
+    }
 
-            if(!text.trim()){
-                setError('Please Write Somethingggg!')
-                return
+    setLoading(true);
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/journals`,
+        {
+          text,
+          coordinates: [location.lng, location.lat],
+        },
+        {
+          headers: {
+            "x-user-id": userId,
+            "x-username": username,
+          },
+        },
+      );
 
-            }
-
-            setLoading(true)
-            try {
-                await axios.post(`${import.meta.env.VITE_API_URL}/journals`, {
-                 text,
-                coordinates: [location.lng, location.lat]
-                }, {
-                    headers: {
-                        'x-user-id': userId,
-                        'x-username': username
-                    }
-                })
-
-                setText('')
-                onSubmit()
-            } catch(err){
-                setError('failed to save your journal, Try again.')
-                console.error(err)
-
-            } finally {
-                setLoading(false)
-
-            }
-        }
-    return (
+      setText("");
+      onSubmit();
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "Failed to save journal. Try again.",
+      );
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
     <div className="form-overlay">
       <div className="form-card">
-        <button className="close-btn" onClick={onClose}>✕</button>
+        <button className="close-btn" onClick={onClose}>
+          ✕
+        </button>
         <h2>New Journal Entry</h2>
         <p className="coords">
           📍 {location.lat.toFixed(4)}, {location.lng.toFixed(4)}
@@ -56,14 +60,12 @@ const JournalForm = ({location, onSubmit, onClose, userId, username}) => {
           />
           {error && <p className="error">{error}</p>}
           <button type="submit" disabled={loading}>
-            {loading ? 'Saving...' : 'Save Entry'}
+            {loading ? "Saving..." : "Save Entry"}
           </button>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-
-
-export default JournalForm
+export default JournalForm;

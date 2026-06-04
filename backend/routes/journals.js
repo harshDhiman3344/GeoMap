@@ -1,8 +1,10 @@
 const express = require('express');
+const leoProfanity = require('leo-profanity')
 
 const router = express.Router();
 
 const Journal = require('../models/Journal');
+
 
 
 //fetching the journals 
@@ -52,6 +54,11 @@ router.post("/", async (req, res)=>{
     }
     
     const {text, coordinates} = req.body;
+
+    // Check for profanity
+    if (leoProfanity.check(req.body.text)) {
+    return res.status(400).json({message: 'Your entry contains inappropriate language.'})
+    }
 
     const journal = new Journal({
         userId,
