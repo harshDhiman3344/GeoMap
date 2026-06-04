@@ -4,26 +4,41 @@ import { SignedIn, SignedOut, SignIn, useUser, UserButton } from "@clerk/clerk-r
 import MapView from "./components/MapView";
 import JournalForm from "./components/JournalForm";
 import JournalList from "./components/JournalList";
+import UsernameSetup from "./components/UsernameSetup";
 import "./App.css";
 
 function App() {
   const { user, isLoaded } = useUser();
+  const [username, setUsername] = useState("");
+  const [usernameSet, setUsernameSet] = useState(false);
   const [journals, setJournals] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showList, setShowList] = useState(false);
-
-  const getHeaders = () => {
-    return {
-      "x-user-id": user?.id || "",
-    };
-  };
 
   const getHeadersWithUsername = () => {
     return {
       "x-user-id": user?.id || "",
       "x-username": user?.username || "",
     };
+  };
+
+  // Load username from localStorage
+  useEffect(() => {
+    if (user?.id) {
+      const storedUsername = localStorage.getItem(`geojournal_username_${user.id}`);
+      if (storedUsername) {
+        setUsername(storedUsername);
+        setUsernameSet(true);
+      } else {
+        setUsernameSet(false);
+      }
+    }
+  }, [user?.id]);
+
+  const handleUsernameSet = (newUsername) => {
+    setUsername(newUsername);
+    setUsernameSet(true);
   };
 
   const fetchJournals = async () => {
@@ -83,46 +98,50 @@ function App() {
   return (
     <>
       <SignedIn>
-        <div className="app">
-          <div className="title">
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <UserButton />
-              <span>GeoJournal</span>
-            </div>
-            <button className="list-toggle" onClick={() => setShowList(!showList)}>
-              {showList ? "Map" : "Entries"}
-            </button>
-          </div>
-          <div className="main">
-            <div className="sidebar">
-              <div className="sidebar-clock" id="clock"></div>
-              <div className="sidebar-date" id="date"></div>
-              <div className="sidebar-entries">
-                <span className="entry-count">{journals.length}</span>
-                <span className="entry-label">entries</span>
+        {!usernameSet ? (
+          <UsernameSetup userId={user?.id} onUsernameSet={handleUsernameSet} />
+        ) : (
+          <div className="app">
+            <div className="title">
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <UserButton />
+                <span>GeoJournal</span>
               </div>
-              <div className="sidebar-cat">
-                <div className="cat"></div>
+              <button className="list-toggle" onClick={() => setShowList(!showList)}>
+                {showList ? "Map" : "Entries"}
+              </button>
+            </div>
+            <div className="main">
+              <div className="sidebar">
+                <div className="sidebar-clock" id="clock"></div>
+                <div className="sidebar-date" id="date"></div>
+                <div className="sidebar-entries">
+                  <span className="entry-count">{journals.length}</span>
+                  <span className="entry-label">entries</span>
+                </div>
+                <div className="sidebar-cat">
+                  <div className="cat"></div>
+                </div>
+              </div>
+              <div className="container">
+                {showList ? (
+                  <JournalList journals={journals} onDelete={fetchJournals} userId={user?.id} />
+                ) : (
+                  <MapView journals={journals} onMapClick={handleMapClick} />
+                )}
+                {showForm && (
+                  <JournalForm
+                    location={selectedLocation}
+                    onSubmit={handleFormSubmit}
+                    onClose={handleFormClose}
+                    userId={user?.id}
+                    username={username}
+                  />
+                )}
               </div>
             </div>
-            <div className="container">
-              {showList ? (
-                <JournalList journals={journals} onDelete={fetchJournals} userId={user?.id} />
-              ) : (
-                <MapView journals={journals} onMapClick={handleMapClick} />
-              )}
-              {showForm && (
-                <JournalForm
-                  location={selectedLocation}
-                  onSubmit={handleFormSubmit}
-                  onClose={handleFormClose}
-                  userId={user?.id}
-                  username={user?.primaryEmailAddress?.emailAddress || user?.fullName || "Anonymous"}
-                />
-              )}
-            </div>
           </div>
-        </div>
+        )}
       </SignedIn>
       <SignedOut>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
