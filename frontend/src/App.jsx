@@ -78,15 +78,11 @@ function App() {
           <div className="sidebar-entries">
             <span className="entry-count">{journals.length}</span>
             <span className="entry-label">entries</span>
+            
           </div>
-          <div className="sidebar-trees">
-            <div>🌲</div>
-            <div>🌳</div>
-            <div>🌲</div>
-            <div>🍃</div>
-            <div>🌿</div>
-            <div>🌲</div>
-          </div>
+          <div className="sidebar-cat">
+  <div className="cat"></div>
+</div>
         </div>
         <div className="container">
         {showList ? (
