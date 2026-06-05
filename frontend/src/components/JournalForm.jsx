@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
+
 const JournalForm = ({ location, onSubmit, onClose, userId, username }) => {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
