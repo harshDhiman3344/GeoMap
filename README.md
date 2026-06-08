@@ -2,15 +2,16 @@
  
 I built this because I wanted a simple way to remember places, not just photos, but actual thoughts tied to a location. You open a map, click somewhere, write what you were feeling, and it saves. That's pretty much it.
  
-It's live at [geo-map-three.vercel.app](https://geo-map-three.vercel.app)
+It's live! at [geo-map-three.vercel.app](https://geo-map-three.vercel.app)
  
 ---
  
 ## What it does!
  
 - Click anywhere on the map to drop a journal entry at that location
-- Everyone can see all entries on the map (it's intentionally public)
-- You sign in with Clerk, and only you can delete your own entries
+- Everyone can see all entries on the map, but only you can delete yours
+- You sign in with Clerk
+- You can choose your username on the first startup
 - Your username shows up on your pins so people know who wrote what
 - There's a profanity filter because I'd like to keep it wholesome
 ---
@@ -24,11 +25,8 @@ It's live at [geo-map-three.vercel.app](https://geo-map-three.vercel.app)
 - Hosted on Vercel (frontend) and Render (backend)
 ---
 
-The design is intentionally cozy, soft purples, cream cards, pixel shadows, Space Mono font. There's a little animated cat in the sidebar. I like it.
 
-
-
-## Running it locally 🖥️
+## How to run it locally
  
 You'll need Node, a MongoDB Atlas connection string, and a Clerk account.
  
@@ -72,9 +70,8 @@ npm run dev
  
 ## API ⚡
  
-| Method | Route | Who can use it |
-|--------|-------|----------------|
-| GET | `/api/journals` | Everyone |
-| POST | `/api/journals` | Signed in users |
-| DELETE | `/api/journals/:id` | The entry's creator only |
-| PUT | `/api/journals/:id` | The entry's creator only |
+| Method   | Route                  | Who can use it         |
+|----------|------------------------|------------------------|
+| GET      | `/api/journals`        | Everyone               |
+| POST     | `/api/journals`        | Signed in users        |
+| DELETE   | `/api/journals/:id`    | Only the specific user |
