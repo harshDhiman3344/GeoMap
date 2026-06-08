@@ -346,4 +346,11 @@ body {
 
 .sidebar-quote{
   font-size: 0.55rem;
+  color: #9b8ec4;
+  text-align: center;
+  line-height: 1.6;
+  padding: 10px 6px;
+  border-top: 1px dashed #9b8ec4;
+  font-style: italic;
 }
+
