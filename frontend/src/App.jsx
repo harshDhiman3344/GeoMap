@@ -23,6 +23,18 @@ function App() {
     };
   };
 
+
+  const quotes = [
+    "anthony bourdain",
+    "life is either a daring adventure or nothing at all.",
+    "depression cannot hit a target in motion",
+    "go where you feel the most alive",
+    "The journey itself is my home",
+    "collect momments, not things",
+    "I love the mountains #mountainGng4life",
+  ]
+
+  const [quote] = useState(()=> quotes[Math.floor(Math.random()*quotes.length)])
   // Load username from localStorage
   useEffect(() => {
     if (user?.id) {
@@ -118,6 +130,9 @@ function App() {
                 <div className="sidebar-entries">
                   <span className="entry-count">{journals.length}</span>
                   <span className="entry-label">entries</span>
+                </div>
+                <div className="sidebar-quote">
+                  "{quote}"
                 </div>
                 <div className="sidebar-cat">
                   <div className="cat"></div>
