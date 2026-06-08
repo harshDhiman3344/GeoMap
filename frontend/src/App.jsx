@@ -32,6 +32,9 @@ function App() {
     "The journey itself is my home",
     "collect momments, not things",
     "I love the mountains #mountainGng4life",
+    "Travel isn't always pretty... The journey changes you; it should change you.",
+    "Fake it till you make it"
+
   ]
 
   const [quote] = useState(()=> quotes[Math.floor(Math.random()*quotes.length)])
@@ -168,3 +171,4 @@ function App() {
 }
 
 export default App;
+
