@@ -7,6 +7,7 @@ const JournalForm = ({ location, onSubmit, onClose, userId, username }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+    
   const handleSubmit = async (e) => {
     e.preventDefault();
 

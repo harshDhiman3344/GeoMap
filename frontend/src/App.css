@@ -355,3 +355,65 @@ body {
 }
 
 
+.auth-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #e8e4f0;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.auth-screen h1 {
+  font-size: 2rem;
+  letter-spacing: 4px;
+  color: #2d2440;
+}
+
+.auth-screen p {
+  font-size: 0.85rem;
+  color: #9b8ec4;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.guest-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f5f2ff;
+  border: 2px solid #2d2440;
+  color: #2d2440;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  padding: 8px 24px;
+  border-radius: 999px;
+  box-shadow: 3px 3px 0px #2d2440;
+  z-index: 9999;
+}
+
+.guest-btn:hover {
+  background: #e8e4f0;
+}
+
+.guest-btn:hover {
+  background: #e8e4f0;
+}
+
+.guest-btn:hover {
+  color: #2d2440;
+}
+
+.auth-screen iframe,
+.auth-screen .cl-rootBox,
+.auth-screen .cl-card {
+  transform: scale(0.95);
+  transform-origin: center;
+}

@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { SignedIn, SignedOut, SignIn, useUser, UserButton } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  useUser,
+  UserButton,
+} from "@clerk/clerk-react";
 import MapView from "./components/MapView";
 import JournalForm from "./components/JournalForm";
 import JournalList from "./components/JournalList";
@@ -15,6 +21,7 @@ function App() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showList, setShowList] = useState(false);
+  const [guestMode, setGuestMode] = useState(false);
 
   const getHeadersWithUsername = () => {
     return {
@@ -22,7 +29,6 @@ function App() {
       "x-username": user?.username || "",
     };
   };
-
 
   const quotes = [
     "anthony bourdain",
@@ -33,15 +39,18 @@ function App() {
     "collect momments, not things",
     "I love the mountains #mountainGng4life",
     "Travel isn't always pretty... The journey changes you; it should change you.",
-    "Fake it till you make it"
+    "Fake it till you make it",
+  ];
 
-  ]
-
-  const [quote] = useState(()=> quotes[Math.floor(Math.random()*quotes.length)])
+  const [quote] = useState(
+    () => quotes[Math.floor(Math.random() * quotes.length)],
+  );
   // Load username from localStorage
   useEffect(() => {
     if (user?.id) {
-      const storedUsername = localStorage.getItem(`geojournal_username_${user.id}`);
+      const storedUsername = localStorage.getItem(
+        `geojournal_username_${user.id}`,
+      );
       if (storedUsername) {
         setUsername(storedUsername);
         setUsernameSet(true);
@@ -58,9 +67,7 @@ function App() {
 
   const fetchJournals = async () => {
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/journals`
-      );
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/journals`);
       setJournals(res.data);
     } catch (err) {
       console.error("Error fetching journals:", err);
@@ -118,11 +125,16 @@ function App() {
         ) : (
           <div className="app">
             <div className="title">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
                 <UserButton />
                 <span>GeoJournal</span>
               </div>
-              <button className="list-toggle" onClick={() => setShowList(!showList)}>
+              <button
+                className="list-toggle"
+                onClick={() => setShowList(!showList)}
+              >
                 {showList ? "Map" : "Entries"}
               </button>
             </div>
@@ -134,16 +146,18 @@ function App() {
                   <span className="entry-count">{journals.length}</span>
                   <span className="entry-label">entries</span>
                 </div>
-                <div className="sidebar-quote">
-                  "{quote}"
-                </div>
+                <div className="sidebar-quote">"{quote}"</div>
                 <div className="sidebar-cat">
                   <div className="cat"></div>
                 </div>
               </div>
               <div className="container">
                 {showList ? (
-                  <JournalList journals={journals} onDelete={fetchJournals} userId={user?.id} />
+                  <JournalList
+                    journals={journals}
+                    onDelete={fetchJournals}
+                    userId={user?.id}
+                  />
                 ) : (
                   <MapView journals={journals} onMapClick={handleMapClick} />
                 )}
@@ -162,13 +176,40 @@ function App() {
         )}
       </SignedIn>
       <SignedOut>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-          <SignIn />
-        </div>
+        {guestMode ? (
+          <div className="app">
+            <div className="title">
+              <span>🌍 GeoJournal</span>
+              <button
+                className="list-toggle"
+                onClick={() => setGuestMode(false)}
+              >
+                Sign In
+              </button>
+            </div>
+            <div className="main">
+              <div className="sidebar">{/* your sidebar content */}</div>
+              <div className="container">
+                <MapView
+                  journals={journals}
+                  onMapClick={() => setGuestMode(false)}
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="auth-screen">
+            <h1>🌍 GeoJournal</h1>
+            <p>your world, your words.</p>
+            <SignIn />
+            <button className="guest-btn" onClick={() => setGuestMode(true)}>
+              just browsing →
+            </button>
+          </div>
+        )}
       </SignedOut>
     </>
   );
 }
 
 export default App;
-
