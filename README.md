@@ -1,8 +1,11 @@
-# GeoJournal 🌍📝
+# GeoJournal
  
-I built this because I wanted a simple way to remember places, not just photos, but actual thoughts tied to a location. You open a map, click somewhere, write what you were feeling, and it saves. That's pretty much it.
+A cool idea which was in my mind since a while, I finally built it. 
+In GeoJournal you can log your favourite memories of locations or some cool spot recommendations anywhere on the global map!
+
+PS: IT MIGHT TAKE LIKE 20 SECONDS TO LOAD FOR THE FIRST TIME U OPEN IT (because render shuts down the cluster if it is not being used (Im on free :P version))
  
-It's live! at [geo-map-three.vercel.app](https://geo-map-three.vercel.app)
+The website is livee at [geo-map-three.vercel.app](https://geo-map-three.vercel.app)
  
 ---
  
@@ -12,23 +15,23 @@ It's live! at [geo-map-three.vercel.app](https://geo-map-three.vercel.app)
 - Everyone can see all entries on the map, but only you can delete yours
 - You sign in with Clerk
 - You can choose your username on the first startup
-- Your username shows up on your pins so people know who wrote what
-- There's a profanity filter because I'd like to keep it wholesome
+- Your username shows up in the pop-up whenever someone clicks on your pin
+- There's a profanity filter because I'd like to keep it wholesome and nice
 ---
  
-## Stack 🧑🏻‍💻
+## Tech Stack 🧑🏻‍💻
  
 - React + Vite on the frontend
 - Node + Express + MongoDB on the backend
-- Clerk for auth
-- React Leaflet for the map
-- Hosted on Vercel (frontend) and Render (backend)
+- Clerk for authentication and login
+- React Leaflet, an open source library for the world map
+- Hosted it on Vercel (frontend) and Render (backend)
 ---
 
 
 ## How to run it locally
  
-You'll need Node, a MongoDB Atlas connection string, and a Clerk account.
+You'll need Node, a MongoDB atlas account, with a new client, and a Clerk account.
  
 **Backend**
  
@@ -37,15 +40,15 @@ cd backend
 npm install
 ```
  
-Make a `.env` file:
+Make an `.env` file:
  
 ```
 MONGODB_URI=your_mongo_uri
 PORT=5000
 ```
- 
+To run backend: 
 ```bash
-npx nodemon server.js
+npm run dev
 ```
  
 **Frontend**
@@ -61,17 +64,16 @@ Make a `.env` file:
 VITE_API_URL=http://localhost:5000/api
 VITE_CLERK_PUBLISHABLE_KEY=your_clerk_key
 ```
- 
+To run front-end:
 ```bash
 npm run dev
 ```
  
 ---
- 
-## API ⚡
- 
-| Method   | Route                  | Who can use it         |
-|----------|------------------------|------------------------|
-| GET      | `/api/journals`        | Everyone               |
-| POST     | `/api/journals`        | Signed in users        |
-| DELETE   | `/api/journals/:id`    | Only the specific user |
+
+IMAGES:
+
+<img width="1097" height="711" alt="Screenshot 2026-06-04 125803" src="https://github.com/user-attachments/assets/4223f98a-87d2-4165-a8c5-aa9ccb57e479" />
+
+<img width="953" height="630" alt="Screenshot 2026-06-04 130214" src="https://github.com/user-attachments/assets/81f535f1-105b-4e41-bb54-9c1c25723b15" />
+
