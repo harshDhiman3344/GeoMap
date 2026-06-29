@@ -32,16 +32,16 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const userId = req.headers["x-user-id"];
   const username = req.headers["x-username"];
-  const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+  const threeMinutesAgo = new Date(Date.now() - 3 * 60 * 1000);
   const recentEntry = await Journal.findOne({
     userId,
-    date: { $gte: oneHourAgo },
+    date: { $gte: threeMinutesAgo },
   });
 
   if (recentEntry) {
     return res
       .status(429)
-      .json({ message: "You can only post once per hour. Take your time ✨" });
+      .json({ message: "You can only post once per 3 minutes. Take your time ✨" });
   }
 
   if (!userId || !username) {
