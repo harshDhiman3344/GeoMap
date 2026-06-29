@@ -11,7 +11,6 @@ connectDB();
 const app = express()
 
 
-
 app.use(cors({
   origin: ['https://geo-map-three.vercel.app', 'http://localhost:5173']
 }));
