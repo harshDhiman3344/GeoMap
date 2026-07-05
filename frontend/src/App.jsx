@@ -101,6 +101,15 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+
+  const [darkMode, setDarkMode] = useState(false)
+
+  const toggleDark = () => {
+    setDarkMode(!darkMode)
+    document.documentElement.classList.toggle('dark')
+  }
+
+
   const handleMapClick = (latlng) => {
     setSelectedLocation(latlng);
     setShowForm(true);
@@ -137,6 +146,9 @@ function App() {
               >
                 {showList ? "Map" : "Entries"}
               </button>
+              <button className="dark-toggle" onClick={toggleDark}>
+  {darkMode ? '☀️' : '🌙'}
+</button>
             </div>
             <div className="main">
               <div className="sidebar">
